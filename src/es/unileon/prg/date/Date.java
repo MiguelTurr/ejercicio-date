@@ -1,5 +1,7 @@
 package es.unileon.prg.date;
 
+import java.util.Random;
+
 public class Date {
 
 	private int day;
@@ -8,27 +10,27 @@ public class Date {
 
 	public Date(int day, int month, int year) throws DateException{
 		this.year = year;
-		this.SetMonth(month);
-		this.SetDay(day);
+		this.setMonth(month);
+		this.setDay(day);
 	}
 
 	// Metodo que asigna un valor a month si el mes es válido
-	private void setMonth(int month) {
+	private void setMonth(int month) throws DateException{
 
 		if (month < 1 || month > 12) {
 			throw new DateException("Mes " + month + " no valido" +
-					" Valores posibles entre 1 y 12.");
+					" (valores posibles entre 1 y 12)");
 		} else {
 			this.month = month;
 		}
 	}
 
 	// Metodo que asigna un valor a day si el día es válido
-	private void setMonth(int day) {
+	private void setDay(int day) throws DateException{
 
 		if(isValidDay(month, day) == false) {
 			throw new DateException("Día " + day + " no valido" +
-					" ese mes no puede tener esos días.");
+					" (el mes "+getMonthName(month)+" debe tener entre 0 y "+getMonthDays(month)+" días)");
 
 		} else {
 			this.day = day;
@@ -74,53 +76,9 @@ public class Date {
 	private boolean isValidDay(int anotherMonth, int anotherDay) {
 		boolean validDay = true;
 
-		if(anotherDay <= 0 || anotherDay > getDaysMonth(anotherMonth)) {
+		if(anotherDay <= 0 || anotherDay > getMonthDays(anotherMonth)) {
 			validDay = false;
 		}
-
-		/*switch(anotherMonth)
-		{
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12: {
-
-				if(anotherDay <= 0 || anotherDay > 31) {
-					validDay = false;
-				}
-				break;
-			}
-			case 4:
-			case 6:
-			case 9:
-			case 11: {
-
-				if(anotherDay <= 0 || anotherDay > 30) {
-					validDay = false;
-				}
-				break;
-			}
-			case 2: {
-
-				if((anotherDay % 4) == 0) {
-					if(anotherDay <= 0 || anotherDay > 29) {
-						validDay = false;
-					}
-				} else {
-					if(anotherDay <= 0 || anotherDay > 28) {
-						validDay = false;
-					}
-				}
-				break;
-			}
-			default: {
-
-				validDay = false;
-			}
-		}*/
 		return validDay;
 	}
 
@@ -218,7 +176,7 @@ public class Date {
 	}
 
 	// Metodo que devuelve el número de días que tiene un mes
-	private int getDaysMonth(int anotherMonth) {
+	private int getMonthDays(int anotherMonth) {
 
 		int days = 0;
 
@@ -256,7 +214,7 @@ public class Date {
 	public String getSameDaysMonth() {
 
 		StringBuilder output = new StringBuilder();
-		int daysMonth = getDaysMonth(this.month);
+		int daysMonth = getMonthDays(this.month);
 
 		output.append("Meses que tienen los mismos días que ");
 		output.append(getMonthName(this.month));
@@ -267,7 +225,7 @@ public class Date {
 		{
 			if(this.month != i)
 			{
-				if(daysMonth == getDaysMonth(i)) {
+				if(daysMonth == getMonthDays(i)) {
 					output.append(getMonthName(i));
 					output.append(" ");
 				}
@@ -303,7 +261,7 @@ public class Date {
 		output.append(this.day);
 		output.append(":\n");
 
-		for(int i = this.day; i <= getDaysMonth(this.month); i++) {
+		for(int i = this.day; i <= getMonthDays(this.month); i++) {
 			output.append(i);
 			output.append(" ");
 		}
@@ -317,9 +275,70 @@ public class Date {
 		
 		for(int i = 0; i < this.month; i++) {
 
-			numberDays += getDaysMonth(this.month);
+			numberDays += getMonthDays(this.month);
 		}
 		return numberDays;
+	}
+
+	// Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
+	public int GenerateRandomDateWhile() {
+		int intentos = 0, day, month;
+		boolean end = false;
+		Date fecha;
+		Random generador = new Random(System.currentTimeMillis());
+
+		while(end == false) {
+				
+			day = generador.nextInt(31) + 1;
+			month = generador.nextInt(12) + 1;
+
+			try {
+				fecha = new Date(day, month, this.year);
+
+				if(IsSameDate(fecha) == false) {
+					intentos ++;
+				} else {
+					end = true;
+				}
+			} catch (DateException e) {
+				intentos ++;
+			}
+		}
+
+		return intentos;
+	}
+
+	// Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
+	public int GenerateRandomDateDoWhile() {
+		int intentos = 0, day, month;
+		boolean end = false;
+		Date fecha;
+		Random generador = new Random(System.currentTimeMillis());
+
+		do {
+				
+			day = generador.nextInt(31) + 1;
+			month = generador.nextInt(12) + 1;
+
+			try {
+				fecha = new Date(day, month, this.year);
+
+				if(IsSameDate(fecha) == false) {
+					intentos ++;
+				} else {
+					end = true;
+				}
+			} catch (DateException e) {
+				intentos ++;
+			}
+		} while(end == false);
+
+		return intentos;
+	}
+
+	// Método que devuelve la semana que estás según la fecha
+	public int getWeekDate() {
+		return (int) getDaysSinceStartYear() / 7;
 	}
 
 	@Override
