@@ -8,14 +8,23 @@ public class Date {
 
 	public Date(int day, int month, int year) throws DateException{
 		this.year = year;
+		this.SetMonth(month);
+		this.SetDay(day);
+	}
+
+	// Metodo que asigna un valor a month si el mes es válido
+	private void setMonth(int month) {
+
 		if (month < 1 || month > 12) {
 			throw new DateException("Mes " + month + " no valido" +
 					" Valores posibles entre 1 y 12.");
 		} else {
 			this.month = month;
 		}
+	}
 
-		//TODO falta comprobar el dia
+	// Metodo que asigna un valor a day si el día es válido
+	private void setMonth(int day) {
 
 		if(isValidDay(month, day) == false) {
 			throw new DateException("Día " + day + " no valido" +
@@ -27,17 +36,17 @@ public class Date {
 	}
 
 	// Metodo que devuelve el año del objeto
-	public int getYear() {
+	private int getYear() {
 		return this.year;
 	}	
 
 	// Metodo que devuelve el mes del objeto
-	public int getMonth() {
+	private int getMonth() {
 		return this.month;
 	}
 
 	// Metodo que devuelve el día del objeto
-	public int getDay() {
+	private int getDay() {
 		return this.day;
 	}
 
