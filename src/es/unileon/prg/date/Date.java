@@ -51,23 +51,42 @@ public class Date {
 	private int getDay() {
 		return this.day;
 	}
+	
+	/**
+		* IsSameYear(Date anotherYear)
+ 		* Metodo que compara si dos años son iguales
 
-	// Metodo que compara si dos años son iguales
+ 	*/
 	public boolean IsSameYear(Date anotherYear) {
 		return (this.year == anotherYear.getYear());
 	}
+	
+	/**
+		* IsSameMonth(Date anotherYear)
+ 		* Metodo que compara si dos meses son iguales
 
-	// Metodo que compara si dos meses son iguales
+ 	*/
+	
 	public boolean IsSameMonth(Date anotherMonth) {
 		return (this.month == anotherMonth.getMonth());
 	}
+	
+	/**
+		* IsSameDay(Date anotherYear)
+ 		* Metodo que compara si dos días son iguales
 
-	// Metodo que compara si dos días son iguales
+ 	*/
+
 	public boolean IsSameDay(Date anotherDay) {
 		return (this.day == anotherDay.getDay());
 	}
 	
-	// Metodo que compara dos objetos date
+	/**
+		* IsSameDate(Date anotherDate)
+ 		* Metodo que compara dos objetos date
+
+ 	*/
+	
 	public boolean IsSameDate(Date anotherDate) {
 		return (IsSameYear(anotherDate) && IsSameMonth(anotherDate) && IsSameDay(anotherDate));
 	}
@@ -82,7 +101,12 @@ public class Date {
 		return validDay;
 	}
 
-	// Metodo que devuelve la estación de un mes
+	/**
+		* getMonthSeason()
+ 		* Metodo que devuelve la estación de un mes
+
+ 	*/
+	
 	public String getMonthSeason() {
 
 		String season = "";
@@ -210,7 +234,12 @@ public class Date {
 		return days;
 	}
 	
-	// Metodo que devuelve los meses que tienen el mismo número de días
+	/**
+		* getSameDaysMonth()
+ 		* Metodo que devuelve los meses que tienen el mismo número de días
+
+ 	*/
+	
 	public String getSameDaysMonth() {
 
 		StringBuilder output = new StringBuilder();
@@ -235,7 +264,12 @@ public class Date {
 		return output.toString();
 	}
 
-	// Metodo que devuelve los meses que quedan para acabar el año
+	/**
+		* getMonthEndYear()
+ 		* Metodo que devuelve los meses que quedan para acabar el año desde una fecha concreta
+
+ 	*/
+	
 	public String getMonthEndYear() {
 	
 		StringBuilder output = new StringBuilder();
@@ -252,7 +286,12 @@ public class Date {
 		return output.toString();
 	}
 
-	// Metodo que devuelve los días que quedan para acabar el mes
+	/**
+		* getDaysEndMonth()
+ 		* Metodo que devuelve los días que quedan para acabar el mes desde una fecha concreta
+
+ 	*/
+	
 	public String getDaysEndMonth() {
 	
 		StringBuilder output = new StringBuilder();
@@ -269,7 +308,12 @@ public class Date {
 		return output.toString();
 	}
 
-	// Metodo que cuenta el número de días desde el inicio del año hasta la fecha
+	/**
+		* getDaysSinceStartYear()
+ 		* Metodo que cuenta el número de días desde el inicio del año hasta la fecha
+
+ 	*/
+	
 	public int getDaysSinceStartYear() {
 		int numberDays = this.day;
 		
@@ -280,7 +324,12 @@ public class Date {
 		return numberDays;
 	}
 
-	// Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
+	/**
+		* GenerateRandomDateWhile()
+ 		* Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
+
+ 	*/
+	
 	public int GenerateRandomDateWhile() {
 		int intentos = 0, day, month;
 		boolean end = false;
@@ -308,7 +357,12 @@ public class Date {
 		return intentos;
 	}
 
-	// Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
+	/**
+		* GenerateRandomDateDoWhile()
+ 		* Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
+
+ 	*/
+	
 	public int GenerateRandomDateDoWhile() {
 		int intentos = 0, day, month;
 		boolean end = false;
@@ -336,7 +390,13 @@ public class Date {
 		return intentos;
 	}
 
-	// Método que devuelve la semana que estás según la fecha
+
+	/**
+		* getWeekDate()
+ 		* Método que devuelve la semana que estás según una fecha concreta
+
+ 	*/
+	
 	public int getWeekDate() {
 		return (int) getDaysSinceStartYear() / 7;
 	}
