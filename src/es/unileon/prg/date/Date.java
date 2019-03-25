@@ -348,8 +348,8 @@ public class Date {
 
 		while(end == false) {
 				
-			day = generador.nextInt(31) + 1;
 			month = generador.nextInt(12) + 1;
+			day = generador.nextInt(getMonthDays(month)) + 1;
 
 			try {
 				fecha = new Date(day, month, this.year);
@@ -381,8 +381,8 @@ public class Date {
 
 		do {
 				
-			day = generador.nextInt(31) + 1;
 			month = generador.nextInt(12) + 1;
+			day = generador.nextInt(getMonthDays(month)) + 1;
 
 			try {
 				fecha = new Date(day, month, this.year);
