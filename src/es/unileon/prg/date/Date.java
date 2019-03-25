@@ -53,18 +53,16 @@ public class Date {
 	}
 	
 	/**
-		* IsSameYear(Date anotherYear)
- 		* Metodo que compara si dos años son iguales
-
+	* 	IsSameYear(Date anotherYear)
+ 	* 	Metodo que compara si dos años son iguales
  	*/
 	public boolean IsSameYear(Date anotherYear) {
 		return (this.year == anotherYear.getYear());
 	}
 	
 	/**
-		* IsSameMonth(Date anotherYear)
- 		* Metodo que compara si dos meses son iguales
-
+	* 	IsSameMonth(Date anotherYear)
+ 	* 	Metodo que compara si dos meses son iguales
  	*/
 	
 	public boolean IsSameMonth(Date anotherMonth) {
@@ -72,9 +70,8 @@ public class Date {
 	}
 	
 	/**
-		* IsSameDay(Date anotherYear)
- 		* Metodo que compara si dos días son iguales
-
+	* 	IsSameDay(Date anotherYear)
+ 	* 	Metodo que compara si dos días son iguales
  	*/
 
 	public boolean IsSameDay(Date anotherDay) {
@@ -82,9 +79,8 @@ public class Date {
 	}
 	
 	/**
-		* IsSameDate(Date anotherDate)
- 		* Metodo que compara dos objetos date
-
+	* 	IsSameDate(Date anotherDate)
+ 	* 	Metodo que compara dos objetos date
  	*/
 	
 	public boolean IsSameDate(Date anotherDate) {
@@ -102,9 +98,8 @@ public class Date {
 	}
 
 	/**
-		* getMonthSeason()
- 		* Metodo que devuelve la estación de un mes
-
+	* 	getMonthSeason()
+ 	* 	Metodo que devuelve la estación de un mes
  	*/
 	
 	public String getMonthSeason() {
@@ -235,9 +230,8 @@ public class Date {
 	}
 	
 	/**
-		* getSameDaysMonth()
- 		* Metodo que devuelve los meses que tienen el mismo número de días
-
+	* 	getSameDaysMonth()
+ 	* 	Metodo que devuelve los meses que tienen el mismo número de días
  	*/
 	
 	public String getSameDaysMonth() {
@@ -265,9 +259,8 @@ public class Date {
 	}
 
 	/**
-		* getMonthEndYear()
- 		* Metodo que devuelve los meses que quedan para acabar el año desde una fecha concreta
-
+	* 	getMonthEndYear()
+ 	* 	Metodo que devuelve los meses que quedan para acabar el año desde una fecha concreta
  	*/
 	
 	public String getMonthEndYear() {
@@ -287,9 +280,8 @@ public class Date {
 	}
 
 	/**
-		* getDaysEndMonth()
- 		* Metodo que devuelve los días que quedan para acabar el mes desde una fecha concreta
-
+	* 	getDaysEndMonth()
+ 	* 	Metodo que devuelve los días que quedan para acabar el mes desde una fecha concreta
  	*/
 	
 	public String getDaysEndMonth() {
@@ -309,9 +301,8 @@ public class Date {
 	}
 
 	/**
-		* getDaysSinceStartYear()
- 		* Metodo que cuenta el número de días desde el inicio del año hasta la fecha
-
+	* 	getDaysSinceStartYear()
+ 	* 	Metodo que cuenta el número de días desde el inicio del año hasta la fecha
  	*/
 	
 	public int getDaysSinceStartYear() {
@@ -325,9 +316,8 @@ public class Date {
 	}
 
 	/**
-		* GenerateRandomDateWhile()
- 		* Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
-
+	* 	GenerateRandomDateWhile()
+ 	* 	Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
  	*/
 	
 	public int GenerateRandomDateWhile() {
@@ -358,9 +348,8 @@ public class Date {
 	}
 
 	/**
-		* GenerateRandomDateDoWhile()
- 		* Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
-
+	* 	GenerateRandomDateDoWhile()
+ 	* 	Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
  	*/
 	
 	public int GenerateRandomDateDoWhile() {
@@ -390,15 +379,74 @@ public class Date {
 		return intentos;
 	}
 
+	public Date tomorrow() {
+
+		int tyear = this.year, tmonth = this.month, tday = this.day + 1;
+		Date otherDay2;
+
+		if(tday > getMonthDays(tmonth)) {
+			tday = 1;
+			tmonth++;
+
+			if(tmonth > 12) {
+				tmonth = 1;
+				tyear++;
+			}
+		}
+
+		try {
+			otherDay2 = new Date(tday, tmonth, tyear);
+			return otherDay2;
+		} catch (DateException e) {	
+			return this;
+		}
+	}
 
 	/**
-		* getWeekDate()
- 		* Método que devuelve la semana que estás según una fecha concreta
-
+	* 	dayOfWeek()
+ 	* 	Método que devuelve que día de la semana es
  	*/
 	
-	public int getWeekDate() {
-		return (int) getDaysSinceStartYear() / 7;
+	public String dayOfWeek(int firstOfJanuary) {
+
+		String diaNombre = "";
+
+		int dia = firstOfJanuary + (getDaysSinceStartYear() % 7);
+
+		switch(dia) {
+			case 1: {
+				diaNombre = "Lunes";
+				break;
+			}
+			case 2: {
+				diaNombre = "Martes";
+				break;
+			}
+			case 3: {
+				diaNombre = "Miercoles";
+				break;
+			}
+			case 4: {
+				diaNombre = "Jueves";
+				break;
+			}
+			case 5: {
+				diaNombre = "Viernes";
+				break;
+			}
+			case 6: {
+				diaNombre = "Sábado";
+				break;
+			}
+			case 7: {
+				diaNombre = "Domingo";
+				break;
+			}
+			default: {
+				diaNombre = "Desconocido";
+			}
+		}
+		return diaNombre;
 	}
 
 	@Override

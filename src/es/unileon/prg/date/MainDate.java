@@ -6,7 +6,7 @@ public class MainDate {
 
 		Date dia1, dia2;
 		try {
-			dia1 = new Date(10, 3, 2017);
+			dia1 = new Date(31, 12, 2017);
 
 			System.out.println(dia1);
 			System.out.println("Estacion: "+dia1.getMonthSeason());		
@@ -14,7 +14,7 @@ public class MainDate {
 			System.out.println(dia1.getMonthEndYear());
 			System.out.println(dia1.getDaysEndMonth());
 			System.out.println("Días desde el inicio del año: "+dia1.getDaysSinceStartYear());
-			System.out.println("Semana del año: "+dia1.getWeekDate());
+			System.out.println("Día de la semana: "+dia1.dayOfWeek(1));
 			System.out.println("Intentos (while): "+dia1.GenerateRandomDateWhile());
 			System.out.println("Intentos (do-while): "+dia1.GenerateRandomDateDoWhile());
 
@@ -27,9 +27,12 @@ public class MainDate {
 			System.out.println(dia2.getMonthEndYear());
 			System.out.println(dia2.getDaysEndMonth());
 			System.out.println("Días desde el inicio del año: "+dia2.getDaysSinceStartYear());
-			System.out.println("Semana del año: "+dia2.getWeekDate());
+			System.out.println("Día de la semana: "+dia2.dayOfWeek(1));
 			System.out.println("Intentos (while): "+dia2.GenerateRandomDateWhile());
 			System.out.println("Intentos (do-while): "+dia2.GenerateRandomDateDoWhile());
+			
+			Date dia3 = dia1.tomorrow();
+			System.out.println(dia3);
 
 		} catch (DateException e) {
 			System.out.println(e.getMessage());
