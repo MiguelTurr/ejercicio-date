@@ -329,7 +329,7 @@ public class Date {
 		
 		for(int i = 0; i < this.month; i++) {
 
-			numberDays += getMonthDays(this.month);
+			numberDays += getMonthDays(i);
 		}
 		return numberDays;
 	}
