@@ -97,7 +97,7 @@ public class Date {
 	*	@return Si ambas fechas coinciden
  	*/
 	
-	public boolean IsSameDate(Date anotherDateanotherDate) {
+	public boolean IsSameDate(Date anotherDate) {
 		return (IsSameYear(anotherDate) && IsSameMonth(anotherDate) && IsSameDay(anotherDate));
 	}
 
