@@ -2,6 +2,12 @@ package es.unileon.prg.date;
 
 import java.util.Random;
 
+/**
+ * Esta clase define objetos que contienen una fecha
+ * @author: Miguel Turrión Gutiérrez
+ * @version: 25/03/2019
+ */
+
 public class Date {
 
 	private int day;
@@ -55,6 +61,8 @@ public class Date {
 	/**
 	* 	IsSameYear(Date anotherYear)
  	* 	Metodo que compara si dos años son iguales
+	*	@param anotherYear El parámetro anotherYear es un objeto de la clase Date
+	*	@return Si ambos años coinciden o no
  	*/
 	public boolean IsSameYear(Date anotherYear) {
 		return (this.year == anotherYear.getYear());
@@ -63,6 +71,8 @@ public class Date {
 	/**
 	* 	IsSameMonth(Date anotherYear)
  	* 	Metodo que compara si dos meses son iguales
+	*	@param anotherMonth El parámetro anotherMonth es un objeto de la clase Date
+	*	@return Si ambos meses coinciden o no
  	*/
 	
 	public boolean IsSameMonth(Date anotherMonth) {
@@ -72,6 +82,8 @@ public class Date {
 	/**
 	* 	IsSameDay(Date anotherYear)
  	* 	Metodo que compara si dos días son iguales
+	*	@param anotherDay El parámetro anotherDayanotherDay es un objeto de la clase Date
+	*	@return Si ambos días coinciden o no
  	*/
 
 	public boolean IsSameDay(Date anotherDay) {
@@ -81,9 +93,11 @@ public class Date {
 	/**
 	* 	IsSameDate(Date anotherDate)
  	* 	Metodo que compara dos objetos date
+	*	@param anotherDate El parámetro anotherDate es un objeto de la clase Date
+	*	@return Si ambas fechas coinciden
  	*/
 	
-	public boolean IsSameDate(Date anotherDate) {
+	public boolean IsSameDate(Date anotherDateanotherDate) {
 		return (IsSameYear(anotherDate) && IsSameMonth(anotherDate) && IsSameDay(anotherDate));
 	}
 
@@ -100,6 +114,7 @@ public class Date {
 	/**
 	* 	getMonthSeason()
  	* 	Metodo que devuelve la estación de un mes
+	*	@return El nombre de la estación del año	
  	*/
 	
 	public String getMonthSeason() {
@@ -232,6 +247,7 @@ public class Date {
 	/**
 	* 	getSameDaysMonth()
  	* 	Metodo que devuelve los meses que tienen el mismo número de días
+	*	@return Devuelve el nombre de los meses que tengan el mismo número de días
  	*/
 	
 	public String getSameDaysMonth() {
@@ -261,6 +277,7 @@ public class Date {
 	/**
 	* 	getMonthEndYear()
  	* 	Metodo que devuelve los meses que quedan para acabar el año desde una fecha concreta
+	*	@return Devuelve el nombre de los meses que quedan para acabar el año
  	*/
 	
 	public String getMonthEndYear() {
@@ -282,6 +299,7 @@ public class Date {
 	/**
 	* 	getDaysEndMonth()
  	* 	Metodo que devuelve los días que quedan para acabar el mes desde una fecha concreta
+	*	@return Devuelve los días que quedan para acabar el mes
  	*/
 	
 	public String getDaysEndMonth() {
@@ -303,6 +321,7 @@ public class Date {
 	/**
 	* 	getDaysSinceStartYear()
  	* 	Metodo que cuenta el número de días desde el inicio del año hasta la fecha
+	*	@return Devuelve los días que han pasado desde el inicio del año
  	*/
 	
 	public int getDaysSinceStartYear() {
@@ -318,6 +337,7 @@ public class Date {
 	/**
 	* 	GenerateRandomDateWhile()
  	* 	Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (while)
+	*	@return Devuelve el número de intentos que se han realizado hasta que la fecha a coincidido
  	*/
 	
 	public int GenerateRandomDateWhile() {
@@ -350,6 +370,7 @@ public class Date {
 	/**
 	* 	GenerateRandomDateDoWhile()
  	* 	Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
+	*	@return Devuelve el número de intentos que se han realizado hasta que la fecha a coincidido
  	*/
 	
 	public int GenerateRandomDateDoWhile() {
@@ -379,10 +400,16 @@ public class Date {
 		return intentos;
 	}
 
+	/**
+	* 	tomorrow()
+ 	* 	Metodo que da la fecha siguiente a la fecha introducida
+	*	@return Devuelve un objeto de la clase Date que es el siguiente día a la fecha introducida
+ 	*/
+	
 	public Date tomorrow() {
 
 		int tyear = this.year, tmonth = this.month, tday = this.day + 1;
-		Date otherDay2;
+		Date otherDay;
 
 		if(tday > getMonthDays(tmonth)) {
 			tday = 1;
@@ -395,16 +422,18 @@ public class Date {
 		}
 
 		try {
-			otherDay2 = new Date(tday, tmonth, tyear);
-			return otherDay2;
+			otherDay = new Date(tday, tmonth, tyear);
 		} catch (DateException e) {	
-			return this;
+			otherDay = this;
 		}
+		return otherDay;
 	}
 
 	/**
 	* 	dayOfWeek()
  	* 	Método que devuelve que día de la semana es
+	* 	@param firstOfJanuary El parámetro firstOfJanuary es el día de la semana que se empezó el año
+	*	@return Devuelve el nombre del día de la semana que coincide con la fecha
  	*/
 	
 	public String dayOfWeek(int firstOfJanuary) {
