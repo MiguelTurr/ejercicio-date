@@ -1,15 +1,15 @@
-package es.unileon.prg.date;
+package es.unileon.prg1.date;
 
 public class MainDate {
 
 	public static void main(String[] args) {
 
-		Date dia1, dia2;
+		/*Date dia1, dia2;
 		try {
 			dia1 = new Date(31, 12, 2017);
 
 			System.out.println(dia1);
-			System.out.println("Estacion: "+dia1.getMonthSeason());		
+			System.out.println("Estacion: "+dia1.getSeasonName());		
 			System.out.println(dia1.getSameDaysMonth());
 			System.out.println(dia1.getMonthEndYear());
 			System.out.println(dia1.getDaysEndMonth());
@@ -22,7 +22,7 @@ public class MainDate {
 
 			System.out.println("\n\n");
 			System.out.println(dia2);
-			System.out.println("Estacion: "+dia2.getMonthSeason());		
+			System.out.println("Estacion: "+dia2.getSeasonName());		
 			System.out.println(dia2.getSameDaysMonth());
 			System.out.println(dia2.getMonthEndYear());
 			System.out.println(dia2.getDaysEndMonth());
@@ -36,7 +36,7 @@ public class MainDate {
 
 		} catch (DateException e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
 
 		Date today;
 

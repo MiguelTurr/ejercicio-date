@@ -1,4 +1,4 @@
-package es.unileon.prg.date;
+package es.unileon.prg1.date;
 
 import java.util.Random;
 
@@ -14,16 +14,33 @@ public class Date {
 	private int month;
 	private int year;
 
-	public Date(int day, int month, int year) throws DateException{
+	Date() throws DateException{
+		this.year = 2017;
+		this.month = 1;
+		this.day = 1;
+	}
+	
+	Date(Date today) throws DateException{
+		this.year = today.getYear();
+		this.month = today.getMonth();
+		this.day = today.getDay();
+	}
+	
+	Date(int day, int month, int year) throws DateException{
 		this.year = year;
 		this.setMonth(month);
 		this.setDay(day);
 	}
 
-	// Metodo que asigna un valor a month si el mes es válido
-	private void setMonth(int month) throws DateException{
+	/**
+	*	setMonth(int month)
+	*	Metodo que asigna un valor a month si el mes es válido
+	*	@param month El parámetro month es el mes que se le asigna
+	*/
 
-		if (month < 1 || month > 12) {
+	public void setMonth(int month) throws DateException{
+
+		if ((month < 1) || (month > 12)) {
 			throw new DateException("Mes " + month + " no valido" +
 					" (valores posibles entre 1 y 12)");
 		} else {
@@ -31,8 +48,13 @@ public class Date {
 		}
 	}
 
-	// Metodo que asigna un valor a day si el día es válido
-	private void setDay(int day) throws DateException{
+	/**
+	*	setDay(int day)
+	*	Metodo que asigna un valor a day si el día es válido
+	*	@param day El parámetro day es el día que se le asigna
+	*/
+
+	public void setDay(int day) throws DateException{
 
 		if(isValidDay(month, day) == false) {
 			throw new DateException("Día " + day + " no valido" +
@@ -43,18 +65,49 @@ public class Date {
 		}
 	}
 
-	// Metodo que devuelve el año del objeto
-	private int getYear() {
+	/**
+	*	setYear(int year)
+	*	Metodo que asigna un valor a year si el año es válido
+	*	@param year El parámetro year es el año que se le asigna
+	*/
+
+	public void setYear(int year) throws DateException{
+		
+		if(year < 0) {
+			throw new DateException("Año " + year + " no valido" +
+					" (los años no deben ser menor a 0)");
+		} else {
+			this.year = year;
+		}
+	}
+	
+	/**
+	*	getYear()
+	*	Metodo que devuelve el año del objeto
+	*	@return Devuelve el año del objeto de la clase Date
+	*/
+
+	public int getYear() {
 		return this.year;
 	}	
 
-	// Metodo que devuelve el mes del objeto
-	private int getMonth() {
+	/**
+	*	getMonth()
+	*	Metodo que devuelve el mes del objeto
+	*	@return Devuelve el mes del objeto de la clase Date
+	*/
+
+	public int getMonth() {
 		return this.month;
 	}
+	
+	/**
+	*	getDay()
+	*	Metodo que devuelve el día del objeto
+	*	@return Devuelve el día del objeto de la clase Date
+	*/
 
-	// Metodo que devuelve el día del objeto
-	private int getDay() {
+	public int getDay() {
 		return this.day;
 	}
 	
@@ -64,7 +117,7 @@ public class Date {
 	*	@param anotherYear El parámetro anotherYear es un objeto de la clase Date
 	*	@return Si ambos años coinciden o no
  	*/
-	public boolean IsSameYear(Date anotherYear) {
+	public boolean isSameYear(Date anotherYear) {
 		return (this.year == anotherYear.getYear());
 	}
 	
@@ -75,7 +128,7 @@ public class Date {
 	*	@return Si ambos meses coinciden o no
  	*/
 	
-	public boolean IsSameMonth(Date anotherMonth) {
+	public boolean isSameMonth(Date anotherMonth) {
 		return (this.month == anotherMonth.getMonth());
 	}
 	
@@ -86,7 +139,7 @@ public class Date {
 	*	@return Si ambos días coinciden o no
  	*/
 
-	public boolean IsSameDay(Date anotherDay) {
+	public boolean isSameDay(Date anotherDay) {
 		return (this.day == anotherDay.getDay());
 	}
 	
@@ -97,8 +150,8 @@ public class Date {
 	*	@return Si ambas fechas coinciden
  	*/
 	
-	public boolean IsSameDate(Date anotherDate) {
-		return (IsSameYear(anotherDate) && IsSameMonth(anotherDate) && IsSameDay(anotherDate));
+	public boolean isSame(Date anotherDate) {
+		return (isSameYear(anotherDate) && isSameMonth(anotherDate) && isSameDay(anotherDate));
 	}
 
 	// Metodo que indica si un dia es válido o no
@@ -117,10 +170,10 @@ public class Date {
 	*	@return El nombre de la estación del año	
  	*/
 	
-	public String getMonthSeason() {
+	public String getSeasonName() {
 
 		String season = "";
-		switch(getMonth())
+		switch(this.getMonth())
 		{
 			case 3:
 			case 4:
@@ -151,8 +204,14 @@ public class Date {
 		return season;
 	}
 
-	// Metodo que devuelve el nombre de un mes
-	private String getMonthName(int anotherMonth) {
+
+	/**
+	* 	getMonthName()
+ 	* 	Metodo que devuelve el nombre de un mes
+	*	@return El nombre del mes	
+ 	*/
+
+	public String getMonthName(int anotherMonth) {
 
 		String name = "";
 		switch(anotherMonth)
@@ -354,7 +413,7 @@ public class Date {
 			try {
 				fecha = new Date(day, month, this.year);
 
-				if(IsSameDate(fecha) == false) {
+				if(isSame(fecha) == false) {
 					intentos ++;
 				} else {
 					end = true;
@@ -387,7 +446,7 @@ public class Date {
 			try {
 				fecha = new Date(day, month, this.year);
 
-				if(IsSameDate(fecha) == false) {
+				if(isSame(fecha) == false) {
 					intentos ++;
 				} else {
 					end = true;
