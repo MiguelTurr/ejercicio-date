@@ -14,20 +14,20 @@ public class Date {
 	private int month;
 	private int year;
 
-	Date() throws DateException{
+	Date() {
 		this.year = 2017;
 		this.month = 1;
 		this.day = 1;
 	}
 	
-	Date(Date today) throws DateException{
+	Date(Date today) {
 		this.year = today.getYear();
 		this.month = today.getMonth();
 		this.day = today.getDay();
 	}
 	
 	Date(int day, int month, int year) throws DateException{
-		this.year = year;
+		this.setYear(year);
 		this.setMonth(month);
 		this.setDay(day);
 	}
@@ -56,9 +56,9 @@ public class Date {
 
 	public void setDay(int day) throws DateException{
 
-		if(isValidDay(month, day) == false) {
+		if(isValidDay(this.month, day) == false) {
 			throw new DateException("Día " + day + " no valido" +
-					" (el mes "+getMonthName(month)+" debe tener entre 0 y "+getMonthDays(month)+" días)");
+					" (el mes "+this.getMonthName()+" debe tener entre 0 y "+this.daysOfMonth()+" días)");
 
 		} else {
 			this.day = day;
@@ -158,7 +158,7 @@ public class Date {
 	private boolean isValidDay(int anotherMonth, int anotherDay) {
 		boolean validDay = true;
 
-		if(anotherDay <= 0 || anotherDay > getMonthDays(anotherMonth)) {
+		if(anotherDay <= 0 || anotherDay > this.daysOfMonth()) {
 			validDay = false;
 		}
 		return validDay;
@@ -178,25 +178,25 @@ public class Date {
 			case 3:
 			case 4:
  			case 5: {
-				season = "Primavera";
+				season = "Spring";
 				break;
 			}
 			case 6:
 			case 7:
  			case 8: {
-				season = "Verano";
+				season = "Summer";
 				break;
 			}
 			case 9:
 			case 10:
  			case 11: {
-				season = "Otoño";
+				season = "Autumn";
 				break;
 			}
 			case 12:
 			case 1:
  			case 2: {
-				season = "Invierno";
+				season = "Winter";
 				break;
 			}
 	
@@ -211,69 +211,74 @@ public class Date {
 	*	@return El nombre del mes	
  	*/
 
-	public String getMonthName(int anotherMonth) {
+	public String getMonthName() {
 
 		String name = "";
-		switch(anotherMonth)
+		switch(this.getMonth())
 		{
 			case 1: {
-				name = "Enero";
+				name = "January";
 				break;
 			}
 			case 2: {
-				name = "Febrero";
+				name = "February";
 				break;
 			}
 			case 3: {
-				name = "Marzo";
+				name = "March";
 				break;
 			}
 			case 4: {
-				name = "Abril";
+				name = "April";
 				break;
 			}
 			case 5: {
-				name = "Mayo";
+				name = "May";
 				break;
 			}
 			case 6: {
-				name = "Junio";
+				name = "June";
 				break;
 			}
 			case 7: {
-				name = "Julio";
+				name = "July";
 				break;
 			}
 			case 8: {
-				name = "Agosto";
+				name = "August";
 				break;
 			}
 			case 9: {
-				name = "Septiembre";
+				name = "September";
 				break;
 			}
 			case 10: {
-				name = "Octubre";
+				name = "October";
 				break;
 			}
 			case 11: {
-				name = "Noviembre";
+				name = "November";
 				break;
 			}
 			case 12: {
-				name = "Diciembre";
+				name = "December";
 				break;
 			}
 		}
 		return name;
 	}
+	
+	/**
+	* 	daysOfMonth()
+ 	* 	Metodo que devuelve el número de días que tiene un mes
+	*	@return Devuelve el número de días que tiene un mes
+ 	*/
 
-	// Metodo que devuelve el número de días que tiene un mes
-	private int getMonthDays(int anotherMonth) {
+	public int daysOfMonth() {
 
 		int days = 0;
 
-		switch(anotherMonth)
+		switch(this.month)
 		{	
 			case 1:
 			case 3:
@@ -304,92 +309,108 @@ public class Date {
 	}
 	
 	/**
-	* 	getSameDaysMonth()
+	* 	getMonthsSameDays()
  	* 	Metodo que devuelve los meses que tienen el mismo número de días
 	*	@return Devuelve el nombre de los meses que tengan el mismo número de días
  	*/
 	
-	public String getSameDaysMonth() {
+	public String getMonthsSameDays() {
 
 		StringBuilder output = new StringBuilder();
-		int daysMonth = getMonthDays(this.month);
+		int daysMonth = this.daysOfMonth();
 
-		output.append("Meses que tienen los mismos días que ");
-		output.append(getMonthName(this.month));
-		output.append(" (" +daysMonth+ ")");
-		output.append(":\n");
+		Date fecha;
 
-		for(int i = 1; i <= 12; i++)
-		{
-			if(this.month != i)
+		try {
+			fecha = new Date(1, 1, 1990);
+
+			for(int i = 1; i <= 12; i++)
 			{
-				if(daysMonth == getMonthDays(i)) {
-					output.append(getMonthName(i));
+				fecha.setMonth(i);
+				if(daysMonth == fecha.daysOfMonth()) {
+						output.append(fecha.getMonthName());
 					output.append(" ");
 				}
 			}
+		} catch (DateException e) {
 		}
 
 		return output.toString();
 	}
 
 	/**
-	* 	getMonthEndYear()
+	* 	getMonthsLeft()
  	* 	Metodo que devuelve los meses que quedan para acabar el año desde una fecha concreta
 	*	@return Devuelve el nombre de los meses que quedan para acabar el año
  	*/
 	
-	public String getMonthEndYear() {
+	public String getMonthsLeft() {
 	
 		StringBuilder output = new StringBuilder();
 
-		output.append("Meses para acabar el año desde ");
-		output.append(getMonthName(this.month));
-		output.append(":\n");
+		Date fecha;
 
-		for(int i = this.month + 1; i <= 12; i++) {
-			output.append(getMonthName(i));
-			output.append(" ");
+		try {
+			fecha = new Date(1, 1, 1990);
+
+			for(int i = this.month + 1; i <= 12; i++) {
+				fecha.setMonth(i);
+				output.append(fecha.getMonthName());
+				output.append(" ");
+			}
+		} catch(DateException e) {
 		}
 
 		return output.toString();
 	}
 
 	/**
-	* 	getDaysEndMonth()
+	* 	getDaysLeftOfMonth()
  	* 	Metodo que devuelve los días que quedan para acabar el mes desde una fecha concreta
 	*	@return Devuelve los días que quedan para acabar el mes
  	*/
 	
-	public String getDaysEndMonth() {
-	
+	public String getDaysLeftOfMonth() {
+
 		StringBuilder output = new StringBuilder();
+		Date fecha; 
 
-		output.append("Días para acabar el mes desde el día ");
-		output.append(this.day);
-		output.append(":\n");
+		try {
+			fecha = new Date(this.day, this.month, this.year);
 
-		for(int i = this.day; i <= getMonthDays(this.month); i++) {
-			output.append(i);
-			output.append(" ");
+			for(int i = this.day + 1; i <= this.daysOfMonth(); i++) {
+				
+				fecha.setDay(i);
+				output.append(fecha);
+				output.append(" ");
+			}
+		} catch(DateException e) {
 		}
 
 		return output.toString();
 	}
 
 	/**
-	* 	getDaysSinceStartYear()
+	* 	daysPast()
  	* 	Metodo que cuenta el número de días desde el inicio del año hasta la fecha
 	*	@return Devuelve los días que han pasado desde el inicio del año
  	*/
 	
-	public int getDaysSinceStartYear() {
-		int numberDays = this.day;
-		
-		for(int i = 0; i < this.month; i++) {
+	public int daysPast() {
 
-			numberDays += getMonthDays(i);
+		Date fecha;
+		int numberDays = this.day - 1;
+
+		try {
+			fecha = new Date(1, 1, this.year);
+
+			for(int i = 1; i < this.month; i++) {
+				fecha.setMonth(i);
+				numberDays += fecha.daysOfMonth();
+			}
+		} catch(DateException e) {
 		}
+		
 		return numberDays;
 	}
 
@@ -400,19 +421,20 @@ public class Date {
  	*/
 	
 	public int GenerateRandomDateWhile() {
-		int intentos = 0, day, month;
+		int intentos = 0, day = 1, month = 1;
 		boolean end = false;
 		Date fecha;
 		Random generador = new Random(System.currentTimeMillis());
 
 		while(end == false) {
-				
-			month = generador.nextInt(12) + 1;
-			day = generador.nextInt(getMonthDays(month)) + 1;
-
 			try {
 				fecha = new Date(day, month, this.year);
 
+				month = generador.nextInt(12) + 1;
+				fecha.setMonth(month);
+				day = generador.nextInt(fecha.daysOfMonth()) + 1;
+				fecha.setDay(day);
+				
 				if(isSame(fecha) == false) {
 					intentos ++;
 				} else {
@@ -427,24 +449,25 @@ public class Date {
 	}
 
 	/**
-	* 	GenerateRandomDateDoWhile()
+	* 	numRandomTriesEqualDate()
  	* 	Metodo que devuelve los intentos hasta que la fecha aleatoria generada coincide con la introducida (do while)
 	*	@return Devuelve el número de intentos que se han realizado hasta que la fecha a coincidido
  	*/
 	
-	public int GenerateRandomDateDoWhile() {
-		int intentos = 0, day, month;
+	public int numRandomTriesEqualDate() {
+		int intentos = 0, day = 1, month = 1;
 		boolean end = false;
 		Date fecha;
 		Random generador = new Random(System.currentTimeMillis());
 
 		do {
-				
-			month = generador.nextInt(12) + 1;
-			day = generador.nextInt(getMonthDays(month)) + 1;
-
 			try {
 				fecha = new Date(day, month, this.year);
+
+				month = generador.nextInt(12) + 1;
+				fecha.setMonth(month);
+				day = generador.nextInt(fecha.daysOfMonth()) + 1;
+				fecha.setDay(day);
 
 				if(isSame(fecha) == false) {
 					intentos ++;
@@ -467,24 +490,33 @@ public class Date {
 	
 	public Date tomorrow() {
 
-		int tyear = this.year, tmonth = this.month, tday = this.day + 1;
+		int tyear = this.year, tmonth = this.month, tday = this.day;
 		Date otherDay;
-
-		if(tday > getMonthDays(tmonth)) {
-			tday = 1;
-			tmonth++;
-
-			if(tmonth > 12) {
-				tmonth = 1;
-				tyear++;
-			}
-		}
 
 		try {
 			otherDay = new Date(tday, tmonth, tyear);
+			tday++;
+
+			if(tday > otherDay.daysOfMonth()) {
+				otherDay.setDay(1);
+				tmonth++;
+
+				if(tmonth > 12) {
+			
+					otherDay.setMonth(1);
+					tyear++;
+					otherDay.setYear(tyear);
+				} else {
+					otherDay.setMonth(tmonth);
+				}
+			} else {
+				otherDay.setDay(tday);
+			}
+
 		} catch (DateException e) {	
 			otherDay = this;
 		}
+
 		return otherDay;
 	}
 
@@ -499,35 +531,35 @@ public class Date {
 
 		String diaNombre = "";
 
-		int dia = firstOfJanuary + (getDaysSinceStartYear() % 7);
+		int dia = firstOfJanuary + (daysPast() % 7);
 
 		switch(dia) {
 			case 1: {
-				diaNombre = "Lunes";
+				diaNombre = "Monday";
 				break;
 			}
 			case 2: {
-				diaNombre = "Martes";
+				diaNombre = "Tuesday";
 				break;
 			}
 			case 3: {
-				diaNombre = "Miercoles";
+				diaNombre = "Wednesday";
 				break;
 			}
 			case 4: {
-				diaNombre = "Jueves";
+				diaNombre = "Thursday";
 				break;
 			}
 			case 5: {
-				diaNombre = "Viernes";
+				diaNombre = "Friday";
 				break;
 			}
 			case 6: {
-				diaNombre = "Sábado";
+				diaNombre = "Saturday";
 				break;
 			}
 			case 7: {
-				diaNombre = "Domingo";
+				diaNombre = "Sunday";
 				break;
 			}
 			default: {
